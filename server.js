@@ -26,6 +26,7 @@ const PORT = process.env.PORT || 9090;
 //rutas
 require("./app/routes/cliente.routes")(app);
 require("./app/routes/restaurante.routes")(app);
+require("./app/routes/mesa.routes")(app);
 
 app.listen(PORT, () => {
     console.log('Servidor corriendo en puerto 9090.');

@@ -1,44 +1,43 @@
 const db = require("../models");
-const Clientes = db.Clientes;
+const Restaurantes = db.Restaurantes;
 const Op = db.Sequelize.Op;
+
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.cedula) {
+    if (!req.body.nombre) {
         res.status(400).send({
-            message: "Debe enviar numero de cedula!"
+            message: "Debe enviar el nombre!"
         });
         return;
     }
-    // crea una venta
-    const cliente = {
+    // crea un restaurante
+    const restaurante = {
         nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        cedula: req.body.cedula
-
-        
+        direccion: req.body.direccion    
     };
+
     // Guardamos a la base de datos
-    Clientes.create(cliente)
+    Restaurantes.create(restaurante)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Ha ocurrido un error al crear un cliente."
+                    err.message || "Ha ocurrido un error al crear un restaurante."
             });
         });
 };
 
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    Clientes.findByPk(id)
+    Restaurantes.findByPk(id)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error al obtener cliente con id=" + id
+                message: "Error al obtener el restaurante con id=" + id
             });
         });
 };
@@ -47,16 +46,14 @@ exports.findAll = (req, res) => {
     const nombre = req.query.nombre;
     var condition = nombre ? { nombre: { [Op.iLike]: `%${nombre}%` } } : null;
 
-    Clientes.findAll({ where: condition })
+    Restaurantes.findAll({ where: condition })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Ocurrio un error al obtener los clientes."
+                    err.message || "Ocurrio un error al obtener los restaurantes."
             });
         });
 };
-
-

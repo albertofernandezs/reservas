@@ -1,5 +1,8 @@
+//const ohh = require("sequelize/types");
 const db = require("../models");
 const Mesas = db.Mesas;
+const Restaurantes = db.Restaurantes;
+const Reservas = db.Reservas;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -60,4 +63,50 @@ exports.findAll = (req, res) => {
                     err.message || "Ocurrio un error al obtener las mesas."
             });
         });
+};
+
+exports.listaPorReserva = async (req, res) => {
+    var id_restaurante = req.query.id_restaurante;
+    var fecha_reserva = req.query.fecha;
+    //fecha_reserva = req.query.fecha;
+    var hora_inicial = req.query.hora_inicial;
+    var hora_final = req.query.hora_final;
+    var lista_mesas=[];
+    await db.sequelize.query('SELECT * FROM "Mesas" WHERE id_restaurante = (:id)', {
+        replacements: { id: id_restaurante },
+        type: db.sequelize.QueryTypes.SELECT,
+        model: Mesas,
+    }).then(data => {
+        lista_mesas = data;
+    });
+    var lista_final=[];
+    var lista_reserva=[];
+    for (var i = 0; i < lista_mesas.length; i++) {
+        await db.sequelize.query('SELECT * FROM "Reservas" WHERE id_mesa = (:id)', {
+            replacements: { id: lista_mesas[i].dataValues.id },
+            type: db.sequelize.QueryTypes.SELECT,
+            model: Reservas,
+        }).then(data => {
+            lista_reserva = data;
+        });
+        //console.log(lista_reserva[0].dataValues);
+        var bool = true;
+        var j = 0;
+        while (j < lista_reserva.length ) {
+            var inicial = lista_reserva[j].dataValues.hora_inicial;
+            var final = lista_reserva[j].dataValues.hora_final;
+            var fecha = lista_reserva[j].dataValues.fecha;
+            if (fecha_reserva == fecha) {
+                if ( (hora_inicial<= inicial && hora_final>= inicial) || (hora_inicial<= final && hora_final>= final) || (hora_inicial>= inicial && hora_final<= final) || (hora_inicial<= inicial && hora_final>= final)) {
+                    bool = false;
+                    j=lista_reserva.length;
+                }
+            }
+            j++;
+        }
+        if (bool) {
+            lista_final.push(lista_mesas[i]);
+        }
+    }
+    res.send(lista_final);
 };

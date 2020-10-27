@@ -1,0 +1,27 @@
+<div class= "wrapper fadeInDown">
+    <div id= "formContent">
+        <form [formGroup]="restauranteForm" (ngSubmit)= "crearRestaurante(restauranteForm.value)">
+            <input type="text" id="nombre" formControlName="nombre" class="fadeIn second" placeholder="nombre">
+            <input type="text" id="direccion" formControlName="direccion" class="fadeIn second"  placeholder="direccion">
+            <button class="button" type="submit">crear</button>
+        </form>
+    </div>
+    <button class="button" (click)="listaRestaurantes()">Listar</button>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">nombre</th>
+            <th scope="col">direccion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let restaurante of listaRestaurante">
+            <th scope="row">{{ restaurante.id}}</th>
+            <td>{{ restaurante.nombre}}</td>
+            <td>{{restaurante.direccion}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button" (click)="redirectToMenu()">Regresar</button>
+</div>

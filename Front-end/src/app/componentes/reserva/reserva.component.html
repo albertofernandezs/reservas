@@ -1,0 +1,76 @@
+<div class= "wrapper fadeInDown">
+    <div id= "formContent">
+        <form [formGroup]="parametroReservaForm" (ngSubmit)= "listaMesas(parametroReservaForm.value)">
+            <input type="text" id="id_restaurante" formControlName="id_restaurante" class="fadeIn second" placeholder="restaurante">
+            <input type="text" id="fecha" formControlName="fecha" class="fadeIn second"  placeholder="fecha">
+            <input type="text" id="hora_inicial" formControlName="hora_inicial" class="fadeIn second" placeholder="hora inicial">
+            <input type="text" id="hora_final" formControlName="hora_final" class="fadeIn second" placeholder="hora final">
+            <button class="button" type="submit">Listar</button>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">nombre</th>
+            <th scope="col">planta</th>
+            <th scope="col">capacidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mesa of listaMesa">
+            <th scope="row">{{ mesa.id}}</th>
+            <td>{{ mesa.nombre}}</td>
+            <td>{{ mesa.planta}}</td>
+            <td>{{ mesa.capacidad}}</td>
+          </tr>
+        </tbody>
+      </table>
+    <div id= "formContent">
+        <form [formGroup]="reservaForm" (ngSubmit)= "onSub(reservaForm.value)">
+            <input type="text" id="id_restaurante" formControlName="id_restaurante" class="fadeIn second" placeholder="restaurante">
+            <input type="text" id="id_mesa" formControlName="id_mesa" class="fadeIn second"  placeholder="mesa">
+            <input type="text" id="id_cliente" formControlName="id_cliente" class="fadeIn second" placeholder="cliente">
+            <input type="text" id="fecha" formControlName="fecha" class="fadeIn second" placeholder="fecha">
+            <input type="text" id="hora_inicial" formControlName="hora_inicial" class="fadeIn second"  placeholder="hora inicial">
+            <input type="text" id="hora_final" formControlName="hora_final" class="fadeIn second"  placeholder="hora final">
+            <input type="text" id="cantidad" formControlName="cantidad" class="fadeIn second"  placeholder="cantidad">
+            <button class="button" type="submit">Crear</button>
+        </form>
+    </div>
+    <div id= "formContent">
+        <form [formGroup]="mesaForm" (ngSubmit)= "listaReservas(mesaForm.value)">
+            <input type="text" id="id_restaurante" formControlName="id_restaurante" class="fadeIn second" placeholder="restaurante">
+            <input type="text" id="fecha" formControlName="fecha" class="fadeIn second"  placeholder="fecha">
+            <input type="text" id="id_cliente" formControlName="id_cliente" class="fadeIn second" placeholder="id cliente">
+            <button class="button" type="submit">Listar</button>
+        </form>
+    </div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">id_restaurante</th>
+            <th scope="col">id_mesa</th>
+            <th scope="col">id_cliente</th>
+            <th scope="col">fecha</th>
+            <th scope="col">hora_inicial</th>
+            <th scope="col">hora_final</th>
+            <th scope="col">cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reserva of listaReserva">
+            <th scope="row">{{ reserva.id}}</th>
+            <td>{{ reserva.id_restaurante}}</td>
+            <td>{{ reserva.id_mesa}}</td>
+            <td>{{ reserva.id_cliente}}</td>
+            <td>{{ reserva.fecha}}</td>
+            <td>{{ reserva.hora_inicial}}</td>
+            <td>{{ reserva.hora_final}}</td>
+            <td>{{ reserva.cantidad}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button" (click)="redirectToMenu()">Regresar</button>
+</div>

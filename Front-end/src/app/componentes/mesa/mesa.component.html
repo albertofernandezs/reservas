@@ -1,0 +1,39 @@
+<div class= "wrapper fadeInDown">
+    <div id= "formContent">
+        <form [formGroup]="mesaForm" (ngSubmit)= "crearMesa(mesaForm.value)">
+            <input type="text" id="nombre" formControlName="nombre" class="fadeIn second" placeholder="nombre">
+            <input type="text" id="id_restaurante" formControlName="id_restaurante" class="fadeIn second"  placeholder="restaurante">
+            <input type="text" id="posicion_x" formControlName="posicion_x" class="fadeIn second" placeholder="posicion x">
+            <input type="text" id="posicion_y" formControlName="posicion_y" class="fadeIn second" placeholder="posicion y">
+            <input type="text" id="planta" formControlName="planta" class="fadeIn second" placeholder="planta">
+            <input type="text" id="capacidad" formControlName="capacidad" class="fadeIn second" placeholder="capacidad">
+            <button class="button" type="submit">crear</button>
+        </form>
+    </div>
+    <button class="button" (click)="listaTodasMesas()">Listar</button>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">nombre</th>
+            <th scope="col">id_restaurante</th>
+            <th scope="col">posicion_x</th>
+            <th scope="col">posicion_y</th>
+            <th scope="col">planta</th>
+            <th scope="col">capacidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mesa of listaMesa">
+            <th scope="row">{{ mesa.id}}</th>
+            <td>{{ mesa.nombre}}</td>
+            <td>{{ mesa.id_restaurante}}</td>
+            <td>{{ mesa.posicion_x}}</td>
+            <td>{{ mesa.posicion_y}}</td>
+            <td>{{ mesa.planta}}</td>
+            <td>{{ mesa.capacidad}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button" (click)="redirectToMenu()">Regresar</button>
+</div>

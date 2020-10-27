@@ -1,0 +1,30 @@
+<div class= "wrapper fadeInDown">
+    <div id= "formContent">
+        <form [formGroup]="clienteForm" (ngSubmit)= "crearCliente(clienteForm.value)">
+            <input type="text" id="nombre" formControlName="nombre" class="fadeIn second" placeholder="nombre">
+            <input type="text" id="apellido" formControlName="apellido" class="fadeIn second"  placeholder="apellido">
+            <input type="text" id="cedula" formControlName="cedula" class="fadeIn second" placeholder="cedula">
+            <button class="button" type="submit">crear</button>
+        </form>
+    </div>
+    <button class="button" (click)="listaClientes()">Listar</button>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">nombre</th>
+            <th scope="col">apellido</th>
+            <th scope="col">cedula</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of listaCliente">
+            <th scope="row">{{ cliente.id}}</th>
+            <td>{{ cliente.nombre}}</td>
+            <td>{{ cliente.apellido}}</td>
+            <td>{{ cliente.cedula}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button" (click)="redirectToMenu()">Regresar</button>
+</div>
